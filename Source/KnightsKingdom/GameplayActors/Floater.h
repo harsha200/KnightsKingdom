@@ -23,7 +23,7 @@ public:
 	FVector InitialLocation;
 
 	//Location of the Actor when dragged in from the editor
-	UPROPERTY(VisibleInstanceOnly , BlueprintReadWrite, Category = "Floater Variables")
+	UPROPERTY(VisibleInstanceOnly , BlueprintReadWrite , Category = "Floater Variables")
 	FVector PlacedLocation;
 
 	
