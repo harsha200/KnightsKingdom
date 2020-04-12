@@ -2,6 +2,7 @@
 
 
 #include "Floater.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 AFloater::AFloater()
@@ -20,6 +21,8 @@ AFloater::AFloater()
 
 	bInitializeFloaterLocations = false;
 	bShouldFloat = false;
+
+	InitialForce = FVector(200000.0f, 0.0f, 0.0f);
 }
 
 // Called when the game starts or when spawned
@@ -33,6 +36,10 @@ void AFloater::BeginPlay()
 	{
 		SetActorLocation(InitialLocation);
 	}
+	
+
+	StaticMesh->AddForce(InitialForce);
+	StaticMesh->AddTorque(InitialTorque);
 }
 
 // Called every frame
@@ -46,9 +53,9 @@ void AFloater::Tick(float DeltaTime)
 		AddActorLocalOffset(InitialDirection, true, &HitResult);
 
 		FVector HitLocation = HitResult.Location;
-
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: x = %f , y = %f , z = %f"), HitLocation.X, HitLocation.Y, HitLocation.Z);
 	}
+
+
 
 }
 

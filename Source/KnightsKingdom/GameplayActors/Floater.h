@@ -39,6 +39,11 @@ public:
 	UPROPERTY(EditDefaultsOnly , BluePrintReadWrite , Category = "Floater Variables")
 	bool bInitializeFloaterLocations;
 
+	UPROPERTY(BLuePrintReadWrite , EditInstanceOnly , Category = "Floater Variables")
+	FVector InitialForce;
+
+	UPROPERTY(BLuePrintReadWrite, EditInstanceOnly, Category = "Floater Variables")
+	FVector InitialTorque;
 
 protected:
 	// Called when the game starts or when spawned
