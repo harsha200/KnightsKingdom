@@ -45,6 +45,16 @@ public:
 	UPROPERTY(BLuePrintReadWrite, EditInstanceOnly, Category = "Floater Variables")
 	FVector InitialTorque;
 
+private:
+
+	float RunningTime;
+
+	UPROPERTY(EditAnywhere, Category = "Floater Variables | Wave Parameters")
+	float Amplitude;
+
+	UPROPERTY(EditAnywhere, Category = "Floater Variables | Wave Parameters")
+	float Timestretch;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
