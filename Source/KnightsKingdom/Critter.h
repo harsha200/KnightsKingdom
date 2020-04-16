@@ -29,4 +29,13 @@ public:
 	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* MeshComponent;
 
+	UPROPERTY(EditAnywhere, Category = "PawnMovement")
+	float MaxSpeed;
+
+private:
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+
+	FVector CurrentVelocity;
+	
 };
