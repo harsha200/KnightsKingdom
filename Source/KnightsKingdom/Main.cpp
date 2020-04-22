@@ -6,11 +6,13 @@
 #include "Camera\CameraComponent.h"
 #include "GameFramework\PlayerController.h"
 #include "Engine\World.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework\CharacterMovementComponent.h"
 
 // Sets default values
 AMain::AMain()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Create camera boom (pulls towards the player if there's a collision) 
@@ -18,6 +20,9 @@ AMain::AMain()
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 600.f; // Camera follows at this distance
 	CameraBoom->bUsePawnControlRotation = true; // Rotate arm based on controller
+
+	// Set size for collision capsule
+	GetCapsuleComponent()->SetCapsuleSize(48.f, 105.f);
 
 	// Create Follow Camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -29,6 +34,20 @@ AMain::AMain()
 	//Set our turn rate input
 	BaseTurnRate = 65.f;
 	BaseLookUpRate = 65.f;
+
+	// Don't rotate when the controller rotates.
+	// Let that just affects the camera.
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+
+	// Configure character movement
+	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.f, 0.0f); // ...at this rotation rate
+	GetCharacterMovement()->JumpZVelocity = 650.f;
+	GetCharacterMovement()->AirControl = 0.2f;
+
+
 }
 
 // Called when the game starts or when spawned
