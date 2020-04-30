@@ -57,7 +57,7 @@ void AFloatingPlatform::Tick(float DeltaTime)
 			ToggleInterping();
 
 			GetWorldTimerManager().SetTimer(InterpTimer, this, &AFloatingPlatform::ToggleInterping, InterpTime);
-			SwapVectors(StartPoint, EndPoint);
+			SwapVectors(StartPoint, EndPoint);	
 		}
 	}
 }
