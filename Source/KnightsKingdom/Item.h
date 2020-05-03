@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+	// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -18,6 +18,19 @@ public:
 	/** Base Shape Collision */
 	UPROPERTY(VisibleAnywhere , BlueprintReadWrite, Category="Item | collision")
 	class USphereComponent* CollisionVolume;
+
+	/** Basic Mesh Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Item | Mesh")
+	class UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category =" Item | Particles")
+	class UParticleSystemComponent* IdleParticlesComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Item | Test")
+	class UParticleSystem* OverlapParticles;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = " Item | Sounds")
+	class USoundCue* OverlapSound;
 
 protected:
 	// Called when the game starts or when spawned
