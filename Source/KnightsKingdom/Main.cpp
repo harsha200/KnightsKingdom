@@ -14,6 +14,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Sound/SoundCue.h"
+#include "Kismet\KismetMathLibrary.h"
+#include "Enemy.h"
 
 // Sets default values
 AMain::AMain()
@@ -74,6 +76,8 @@ AMain::AMain()
 	StaminaDrainRate = 25.f;
 	MinSprintStamina = 50.f;
 
+	InterpSpeed = 15.f;
+	bInterpToEnemy = false;
 }
 
 // Called when the game starts or when spawned
@@ -176,6 +180,21 @@ void AMain::Tick(float DeltaTime)
 		;
 	}
 
+	if (bInterpToEnemy && CombatTarget)
+	{
+		FRotator LookAtYaw = GetLookAtRotationYaw(CombatTarget->GetActorLocation());
+		FRotator InterpRotation = FMath::RInterpTo(GetActorRotation(), LookAtYaw, DeltaTime, InterpSpeed);
+
+		SetActorRotation(InterpRotation);
+	}
+}
+
+FRotator AMain::GetLookAtRotationYaw(FVector Target)
+{
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Target);
+	FRotator LookAtRotationYaw(0.f, LookAtRotation.Yaw, 0.f);
+
+	return LookAtRotationYaw;
 }
 
 // Called to bind functionality to input
@@ -326,6 +345,7 @@ void AMain::Attack()
 	if (!bAttacking)
 	{
 		bAttacking = true;
+		SetInterpToEnemy(true);
 
 		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 
@@ -352,6 +372,7 @@ void AMain::Attack()
 void AMain::AttackEnd()
 {
 	bAttacking = false;
+	SetInterpToEnemy(false);
 	if (bLMBDown)
 	{
 		Attack();
@@ -364,4 +385,9 @@ void AMain::PlaySwingSound()
 	{
 		UGameplayStatics::PlaySound2D(this, EquippedWeapon->SwingSound);
 	}
+}
+
+void AMain::SetInterpToEnemy(bool Interp)
+{
+	bInterpToEnemy = Interp;
 }
