@@ -32,7 +32,10 @@ public :
 	bool bWeaponParticles;
 
 	UPROPERTY(EditAnywhere , BlueprintReadWrite , Category = "Item | Sound")
-	class USoundCue* OnEquipSound;
+	class USoundCue* OnEquipSound ;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item | Sound1")
+	USoundCue* SwingSound;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="SkeletalMesh")
 	class USkeletalMeshComponent* SkeletalMesh;
@@ -42,6 +45,7 @@ public :
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item | Combat")
 	float Damage;
+
 protected:
 	virtual void BeginPlay() override;
 public:

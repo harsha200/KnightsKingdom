@@ -5,6 +5,7 @@
 #include "GameFramework\SpringArmComponent.h"
 #include "Camera\CameraComponent.h"
 #include "GameFramework\PlayerController.h"
+#include "kismet/GameplayStatics.h"
 #include "Engine\World.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework\CharacterMovementComponent.h"
@@ -12,6 +13,7 @@
 #include "Weapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimInstance.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values
 AMain::AMain()
@@ -353,5 +355,13 @@ void AMain::AttackEnd()
 	if (bLMBDown)
 	{
 		Attack();
+	}
+}
+
+void AMain::PlaySwingSound()
+{
+	if (EquippedWeapon->SwingSound)
+	{
+		UGameplayStatics::PlaySound2D(this, EquippedWeapon->SwingSound);
 	}
 }
